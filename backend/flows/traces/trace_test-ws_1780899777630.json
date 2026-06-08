@@ -1,0 +1,61 @@
+{
+  "traceId": "test-ws_1780899777630",
+  "flowId": "test-ws",
+  "createdAt": 1780899777.6300118,
+  "trace": [
+    {
+      "timestamp": 1780899777.6285498,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780899777.629261,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "exit",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780899777.6292968,
+      "nodeId": "task1",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780899777.629843,
+      "nodeId": "task1",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "x": 42
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780899777.629903,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "enter",
+      "variables": {
+        "x": 42
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780899777.629956,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "exit",
+      "variables": {
+        "x": 42
+      },
+      "message": null
+    }
+  ]
+}
