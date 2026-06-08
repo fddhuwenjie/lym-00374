@@ -39,7 +39,7 @@ def create_test_flow_1():
                 position=Position(x=100, y=300),
                 data=NodeData(
                     label="x > 0",
-                    expression="ctx.x > 0"
+                    expression="x > 0"
                 )
             ),
             FlowNode(
@@ -108,7 +108,7 @@ def create_test_flow_2():
                 position=Position(x=100, y=300),
                 data=NodeData(
                     label="i < 5",
-                    expression="ctx.i < 5",
+                    expression="i < 5",
                     anchorId="loop_anchor"
                 )
             ),

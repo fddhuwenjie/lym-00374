@@ -15,20 +15,40 @@ result = evaluate_expression('ctx.x > 0', ctx)
 print(f'Test 1: ctx.x > 0 = {result}')
 assert result == True
 
+result = evaluate_expression('x > 0', ctx['ctx'])
+print(f'Test 1b: x > 0 = {result}')
+assert result == True
+
 result = evaluate_expression('ctx.x + ctx.y', ctx)
 print(f'Test 2: ctx.x + ctx.y = {result}')
+assert result == 15
+
+result = evaluate_expression('x + y', ctx['ctx'])
+print(f'Test 2b: x + y = {result}')
 assert result == 15
 
 result = evaluate_expression('ctx.x * 2 + 3', ctx)
 print(f'Test 3: ctx.x * 2 + 3 = {result}')
 assert result == 13
 
+result = evaluate_expression('x * 2 + 3', ctx['ctx'])
+print(f'Test 3b: x * 2 + 3 = {result}')
+assert result == 13
+
 result = evaluate_expression('ctx.x == 5 and ctx.y > 5', ctx)
 print(f'Test 4: ctx.x == 5 and ctx.y > 5 = {result}')
 assert result == True
 
+result = evaluate_expression('x == 5 and y > 5', ctx['ctx'])
+print(f'Test 4b: x == 5 and y > 5 = {result}')
+assert result == True
+
 result = evaluate_expression('ctx["x"]', ctx)
 print(f'Test 5: ctx["x"] = {result}')
+assert result == 5
+
+result = evaluate_expression('x', ctx['ctx'])
+print(f'Test 5b: x = {result}')
 assert result == 5
 
 try:

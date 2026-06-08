@@ -1,0 +1,104 @@
+{
+  "traceId": "test-direct-vars_1780901515828",
+  "flowId": "test-direct-vars",
+  "createdAt": 1780901515.828678,
+  "trace": [
+    {
+      "timestamp": 1780901515.82546,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.826234,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "exit",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8262668,
+      "nodeId": "task1",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.826902,
+      "nodeId": "task1",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8269491,
+      "nodeId": "condition",
+      "nodeType": "condition",
+      "action": "enter",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.826993,
+      "nodeId": "condition",
+      "nodeType": "condition",
+      "action": "exit",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.82708,
+      "nodeId": "task_true",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8273861,
+      "nodeId": "task_true",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "x": 10,
+        "result": "yes"
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8276181,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "enter",
+      "variables": {
+        "x": 10,
+        "result": "yes"
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.827928,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "exit",
+      "variables": {
+        "x": 10,
+        "result": "yes"
+      },
+      "message": null
+    }
+  ]
+}

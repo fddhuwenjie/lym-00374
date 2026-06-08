@@ -187,7 +187,8 @@ class FlowExecutor:
             raise ExecutionError("Condition expression is empty")
 
         try:
-            ctx = {'ctx': self.state.variables}
+            ctx = dict(self.state.variables)
+            ctx['ctx'] = self.state.variables
             result = evaluate_expression(expression, ctx)
             return bool(result)
         except ASTEvaluationError as e:
@@ -207,7 +208,8 @@ class FlowExecutor:
             raise ExecutionError("Loop expression is empty")
 
         try:
-            ctx = {'ctx': self.state.variables}
+            ctx = dict(self.state.variables)
+            ctx['ctx'] = self.state.variables
             result = evaluate_expression(expression, ctx)
             return bool(result)
         except ASTEvaluationError as e:

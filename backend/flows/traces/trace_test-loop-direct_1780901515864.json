@@ -1,0 +1,261 @@
+{
+  "traceId": "test-loop-direct_1780901515864",
+  "flowId": "test-loop-direct",
+  "createdAt": 1780901515.864268,
+  "trace": [
+    {
+      "timestamp": 1780901515.858512,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8585742,
+      "nodeId": "start",
+      "nodeType": "start",
+      "action": "exit",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8586009,
+      "nodeId": "task_init",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.859106,
+      "nodeId": "task_init",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.859275,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.859474,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.859742,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8608289,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8611488,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8616269,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.861701,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.861784,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.861844,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8621151,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.862164,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.862854,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.862934,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.863193,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.863254,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.863468,
+      "nodeId": "loop_anchor",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.863555,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.863988,
+      "nodeId": "task_inc",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.864036,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.864078,
+      "nodeId": "loop",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.8641229,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "enter",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901515.864207,
+      "nodeId": "end",
+      "nodeType": "end",
+      "action": "exit",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    }
+  ]
+}
