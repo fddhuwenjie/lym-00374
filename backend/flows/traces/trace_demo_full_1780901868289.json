@@ -1,0 +1,101 @@
+{
+  "traceId": "demo_full_1780901868289",
+  "flowId": "demo_full",
+  "createdAt": 1780901868.289441,
+  "trace": [
+    {
+      "timestamp": 1780901868.280003,
+      "nodeId": "n1",
+      "nodeType": "start",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.281215,
+      "nodeId": "n1",
+      "nodeType": "start",
+      "action": "exit",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.281396,
+      "nodeId": "n2",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.2852118,
+      "nodeId": "n2",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.28549,
+      "nodeId": "n3",
+      "nodeType": "condition",
+      "action": "enter",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.285598,
+      "nodeId": "n3",
+      "nodeType": "condition",
+      "action": "exit",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.2861462,
+      "nodeId": "n4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "x": 10
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.287064,
+      "nodeId": "n4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "x": 11
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.288909,
+      "nodeId": "n6",
+      "nodeType": "end",
+      "action": "enter",
+      "variables": {
+        "x": 11
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.289155,
+      "nodeId": "n6",
+      "nodeType": "end",
+      "action": "exit",
+      "variables": {
+        "x": 11
+      },
+      "message": null
+    }
+  ]
+}

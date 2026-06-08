@@ -1,0 +1,281 @@
+{
+  "traceId": "loop2_1780901868331",
+  "flowId": "loop2",
+  "createdAt": 1780901868.331656,
+  "trace": [
+    {
+      "timestamp": 1780901868.3212621,
+      "nodeId": "l1",
+      "nodeType": "start",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.321399,
+      "nodeId": "l1",
+      "nodeType": "start",
+      "action": "exit",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.321461,
+      "nodeId": "l2",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {},
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3221838,
+      "nodeId": "l2",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.322475,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.322665,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3228328,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 0
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.323478,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3235478,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.323596,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3236532,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 1
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3243678,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.324524,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.32466,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.32514,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 2
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.32623,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.326396,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.326506,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.326747,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 3
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3278122,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 4
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3283489,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 4
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.328469,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 4
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.328607,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "enter",
+      "variables": {
+        "i": 4
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3308318,
+      "nodeId": "l4",
+      "nodeType": "task",
+      "action": "exit",
+      "variables": {
+        "i": 5
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.33118,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "enter",
+      "variables": {
+        "i": 5
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.3313138,
+      "nodeId": "l3",
+      "nodeType": "loop",
+      "action": "exit",
+      "variables": {
+        "i": 5
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.331449,
+      "nodeId": "l5",
+      "nodeType": "end",
+      "action": "enter",
+      "variables": {
+        "i": 5
+      },
+      "message": null
+    },
+    {
+      "timestamp": 1780901868.331551,
+      "nodeId": "l5",
+      "nodeType": "end",
+      "action": "exit",
+      "variables": {
+        "i": 5
+      },
+      "message": null
+    }
+  ]
+}

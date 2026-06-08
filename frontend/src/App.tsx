@@ -1,15 +1,21 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
 import { Toolbar } from './components/Toolbar';
 import { Sidebar } from './components/Sidebar';
 import { FlowEditor } from './components/FlowEditor';
 import { Properties } from './components/Properties';
 import { Monitor } from './components/Monitor';
+import { TriggersTab } from './components/triggers/TriggersTab';
+import { HistoryTab } from './components/history/HistoryTab';
+import { DebugTab } from './components/debug/DebugTab';
 import { useFlowStore, createNewNode } from './store/useFlowStore';
 import { useWebSocket } from './hooks/useWebSocket';
 import type { NodeType, ServerMessage, ClientMessage, FlowDefinition } from './types/flow';
+import { Clock, History, Bug, GitBranch } from 'lucide-react';
 
 const WS_URL = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/execute`;
 const API_URL = '/api';
+
+type BottomTab = 'monitor' | 'triggers' | 'history' | 'debug';
 
 function App() {
   const {
@@ -32,9 +38,18 @@ function App() {
     loadFlowDefinition,
     clearFlow,
     addNode,
+    flows,
+    fetchFlows,
   } = useFlowStore();
 
+  const [bottomTab, setBottomTab] = useState<BottomTab>('monitor');
+  const [breakpoints, setBreakpoints] = useState<string[]>([]);
+  const [evaluateResults, setEvaluateResults] = useState<Map<string, any>>(new Map());
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fetchFlows();
+  }, [fetchFlows]);
 
   const handleMessage = useCallback(
     (message: ServerMessage) => {
@@ -71,6 +86,32 @@ function App() {
           setErrorMessage(message.message);
           updateExecutionStatus('error');
           break;
+        case 'breakpointUpdated':
+          if (message.enabled) {
+            setBreakpoints(prev => [...new Set([...prev, message.nodeId])]);
+          } else {
+            setBreakpoints(prev => prev.filter(id => id !== message.nodeId));
+          }
+          break;
+        case 'breakpointHit':
+          setActiveNodeId(message.nodeId);
+          updateVariables(message.variables);
+          break;
+        case 'debugPaused':
+          setActiveNodeId(message.nodeId);
+          updateVariables(message.variables);
+          break;
+        case 'evaluateResult':
+          setEvaluateResults(prev => {
+            const next = new Map(prev);
+            next.set(message.expression, {
+              result: message.result,
+              error: message.error,
+              success: message.success,
+            });
+            return next;
+          });
+          break;
       }
     },
     [setActiveNodeId, updateVariables, updateExecutionStatus, addTraceLog, setErrorMessage]
@@ -89,6 +130,28 @@ function App() {
       send(message);
     },
     [send]
+  );
+
+  const handleSetBreakpoint = useCallback(
+    (nodeId: string, enabled: boolean) => {
+      sendMessage({ type: 'setBreakpoint', nodeId, enabled });
+    },
+    [sendMessage]
+  );
+
+  const handleEvaluate = useCallback(
+    async (expression: string) => {
+      return new Promise<any>((resolve) => {
+        const handler = (message: ServerMessage) => {
+          if (message.type === 'evaluateResult' && message.expression === expression) {
+            resolve({ result: message.result, error: message.error, success: message.success });
+          }
+        };
+        sendMessage({ type: 'evaluate', expression });
+        setTimeout(() => resolve({ error: 'Timeout' }), 5000);
+      });
+    },
+    [sendMessage]
   );
 
   const onDragStart = useCallback(
@@ -162,10 +225,11 @@ function App() {
         });
       }
       alert('Flow saved successfully!');
+      fetchFlows();
     } catch (error) {
       alert('Failed to save flow: ' + (error as Error).message);
     }
-  }, [getFlowDefinition]);
+  }, [getFlowDefinition, fetchFlows]);
 
   const handleLoad = useCallback(() => {
     fileInputRef.current?.click();
@@ -180,13 +244,14 @@ function App() {
         const text = await file.text();
         const flow = JSON.parse(text) as FlowDefinition;
         loadFlowDefinition(flow);
+        fetchFlows();
         alert('Flow loaded successfully!');
       } catch (error) {
         alert('Failed to load flow: ' + (error as Error).message);
       }
       event.target.value = '';
     },
-    [loadFlowDefinition]
+    [loadFlowDefinition, fetchFlows]
   );
 
   const handleExport = useCallback(() => {
@@ -220,6 +285,37 @@ function App() {
   useEffect(() => {
     connect();
   }, [connect]);
+
+  const bottomTabs: { id: BottomTab; label: string; icon: React.ReactNode }[] = [
+    { id: 'monitor', label: 'Monitor', icon: <GitBranch size={14} /> },
+    { id: 'triggers', label: 'Triggers', icon: <Clock size={14} /> },
+    { id: 'history', label: 'History', icon: <History size={14} /> },
+    { id: 'debug', label: 'Debug', icon: <Bug size={14} /> },
+  ];
+
+  const renderBottomPanel = () => {
+    switch (bottomTab) {
+      case 'monitor':
+        return <Monitor />;
+      case 'triggers':
+        return <TriggersTab flowId={flowId} flows={flows} />;
+      case 'history':
+        return <HistoryTab flowId={flowId} />;
+      case 'debug':
+        return (
+          <DebugTab
+            nodes={nodes}
+            executionStatus={executionState.status}
+            currentNodeId={executionState.currentNodeId}
+            variables={executionState.variables}
+            breakpoints={breakpoints}
+            onSendMessage={sendMessage}
+            onSetBreakpoint={handleSetBreakpoint}
+            onEvaluate={handleEvaluate}
+          />
+        );
+    }
+  };
 
   return (
     <div className="h-screen flex flex-col bg-slate-900 text-white overflow-hidden">
@@ -265,7 +361,42 @@ function App() {
         <Properties nodes={nodes} />
       </div>
 
-      <Monitor />
+      <div className="h-[400px] border-t border-slate-700 flex flex-col bg-slate-800">
+        <div className="flex border-b border-slate-700 bg-slate-800">
+          {bottomTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setBottomTab(tab.id)}
+              className={`px-4 py-2 text-sm font-medium flex items-center gap-2 border-b-2 transition-colors ${
+                bottomTab === tab.id
+                  ? 'border-blue-500 text-blue-400 bg-slate-700/50'
+                  : 'border-transparent text-slate-400 hover:text-white hover:bg-slate-700/30'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+              {tab.id === 'triggers' && (
+                <span className="text-xs bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded">
+                  NEW
+                </span>
+              )}
+              {tab.id === 'history' && (
+                <span className="text-xs bg-purple-500/20 text-purple-400 px-1.5 py-0.5 rounded">
+                  NEW
+                </span>
+              )}
+              {tab.id === 'debug' && (
+                <span className="text-xs bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded">
+                  NEW
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="flex-1 overflow-hidden">
+          {renderBottomPanel()}
+        </div>
+      </div>
 
       <input
         type="file"

@@ -19,6 +19,7 @@ interface FlowStore {
   flowId: string;
   wsConnected: boolean;
   errorMessage: string | null;
+  flows: FlowDefinition[];
 
   setNodes: (nodes: FlowNode[]) => void;
   setEdges: (edges: FlowEdge[]) => void;
@@ -31,6 +32,7 @@ interface FlowStore {
   setFlowName: (name: string) => void;
   setWsConnected: (connected: boolean) => void;
   setErrorMessage: (message: string | null) => void;
+  fetchFlows: () => Promise<void>;
 
   updateExecutionStatus: (status: ExecutionStatus, variables?: Record<string, any>) => void;
   updateVariables: (variables: Record<string, any>) => void;
@@ -54,6 +56,7 @@ const initialExecutionState: ExecutionState = {
   variables: {},
   trace: [],
   loopCounts: {},
+  snapshots: {},
 };
 
 export const useFlowStore = create<FlowStore>((set, get) => ({
@@ -66,6 +69,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
   flowId: generateId(),
   wsConnected: false,
   errorMessage: null,
+  flows: [],
 
   setNodes: (nodes) => set({ nodes }),
   setEdges: (edges) => set({ edges }),
@@ -101,6 +105,18 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
   setFlowName: (name) => set({ flowName: name }),
   setWsConnected: (connected) => set({ wsConnected: connected }),
   setErrorMessage: (message) => set({ errorMessage: message }),
+
+  fetchFlows: async () => {
+    try {
+      const response = await fetch('/api/flows');
+      if (response.ok) {
+        const flows = await response.json();
+        set({ flows });
+      }
+    } catch (error) {
+      console.error('Failed to fetch flows:', error);
+    }
+  },
 
   updateExecutionStatus: (status, variables) =>
     set((state) => ({
@@ -140,7 +156,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
 
   resetExecution: () =>
     set({
-      executionState: { ...initialExecutionState, flowId: get().flowId },
+      executionState: { ...initialExecutionState, flowId: get().flowId, snapshots: {} },
       activeNodeId: null,
       errorMessage: null,
     }),
@@ -164,7 +180,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
       flowName: flow.name,
       nodes: flow.nodes,
       edges: flow.edges,
-      executionState: { ...initialExecutionState, flowId: flow.id },
+      executionState: { ...initialExecutionState, flowId: flow.id, snapshots: {} },
       selectedNodeId: null,
       activeNodeId: null,
     }),
@@ -174,7 +190,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
       nodes: [],
       edges: [],
       selectedNodeId: null,
-      executionState: initialExecutionState,
+      executionState: { ...initialExecutionState, flowId: '', snapshots: {} },
       activeNodeId: null,
       flowName: 'Untitled Flow',
       flowId: generateId(),
@@ -195,10 +211,16 @@ export const createNewNode = (
     condition: 'Condition',
     loop: 'Loop',
     wait: 'Wait',
+    http: 'HTTP',
+    sql: 'SQL',
+    parallel: 'Parallel',
+    subflow: 'Subflow',
+    trycatch: 'TryCatch',
   };
 
   const data: FlowNode['data'] = {
     label: labels[type],
+    breakpoint: false,
   };
 
   if (type === 'task') {
@@ -212,6 +234,38 @@ export const createNewNode = (
   }
   if (type === 'wait') {
     data.seconds = 1;
+  }
+  if (type === 'http') {
+    data.httpConfig = {
+      url: 'https://api.example.com',
+      method: 'GET',
+      headers: {},
+      body: '',
+      timeout: 30,
+    };
+  }
+  if (type === 'sql') {
+    data.sqlConfig = {
+      connectionString: 'sqlite:///data.db',
+      query: 'SELECT * FROM table_name',
+      params: [],
+    };
+  }
+  if (type === 'parallel') {
+    data.parallelConfig = {
+      branchNodeIds: [],
+    };
+  }
+  if (type === 'subflow') {
+    data.subflowConfig = {
+      subflowId: '',
+    };
+  }
+  if (type === 'trycatch') {
+    data.tryCatchConfig = {
+      tryNodeIds: [],
+      catchNodeIds: [],
+    };
   }
 
   return {

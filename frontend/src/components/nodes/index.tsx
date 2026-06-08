@@ -219,3 +219,225 @@ export const WaitNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }
     </div>
   );
 };
+
+export const HttpNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }) => {
+  const colors = nodeTypeColors.http;
+  return (
+    <div
+      className={`relative px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 min-w-[140px]
+        ${selected ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900' : ''}
+        ${isActive ? 'ring-4 ring-blue-400' : ''}
+        ${data.breakpoint ? 'ring-2 ring-red-500' : ''}
+      `}
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        borderLeft: `4px solid ${colors.border}`,
+      }}
+    >
+      {data.breakpoint && (
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[10px]">
+          ●
+        </div>
+      )}
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+      <div className="font-semibold flex items-center gap-2">
+        <span>🌐</span>
+        {data.label}
+      </div>
+      {data.httpConfig?.url && (
+        <div className="text-xs mt-1 opacity-80 truncate max-w-[160px] font-mono">
+          {data.httpConfig.method} {data.httpConfig.url.substring(0, 30)}...
+        </div>
+      )}
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+    </div>
+  );
+};
+
+export const SqlNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }) => {
+  const colors = nodeTypeColors.sql;
+  return (
+    <div
+      className={`relative px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 min-w-[140px]
+        ${selected ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900' : ''}
+        ${isActive ? 'ring-4 ring-blue-400' : ''}
+        ${data.breakpoint ? 'ring-2 ring-red-500' : ''}
+      `}
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        borderLeft: `4px solid ${colors.border}`,
+      }}
+    >
+      {data.breakpoint && (
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[10px]">
+          ●
+        </div>
+      )}
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+      <div className="font-semibold flex items-center gap-2">
+        <span>🗄️</span>
+        {data.label}
+      </div>
+      {data.sqlConfig?.query && (
+        <div className="text-xs mt-1 opacity-80 truncate max-w-[160px] font-mono">
+          {data.sqlConfig.query.substring(0, 30)}...
+        </div>
+      )}
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+    </div>
+  );
+};
+
+export const ParallelNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }) => {
+  const colors = nodeTypeColors.parallel;
+  return (
+    <div
+      className={`relative px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 min-w-[160px]
+        ${selected ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900' : ''}
+        ${isActive ? 'ring-4 ring-blue-400' : ''}
+        ${data.breakpoint ? 'ring-2 ring-red-500' : ''}
+      `}
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        borderTop: `4px solid ${colors.border}`,
+        borderBottom: `4px solid ${colors.border}`,
+      }}
+    >
+      {data.breakpoint && (
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[10px]">
+          ●
+        </div>
+      )}
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+      <div className="font-semibold flex items-center gap-2">
+        <span>⚡</span>
+        {data.label}
+      </div>
+      {data.parallelConfig?.branchNodeIds && (
+        <div className="text-xs mt-1 opacity-80">
+          {data.parallelConfig.branchNodeIds.length} branches
+        </div>
+      )}
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+    </div>
+  );
+};
+
+export const SubflowNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }) => {
+  const colors = nodeTypeColors.subflow;
+  return (
+    <div
+      className={`relative px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 min-w-[140px]
+        ${selected ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900' : ''}
+        ${isActive ? 'ring-4 ring-blue-400' : ''}
+        ${data.breakpoint ? 'ring-2 ring-red-500' : ''}
+      `}
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        border: `2px dashed ${colors.border}`,
+      }}
+    >
+      {data.breakpoint && (
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[10px]">
+          ●
+        </div>
+      )}
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+      <div className="font-semibold flex items-center gap-2">
+        <span>📦</span>
+        {data.label}
+      </div>
+      {data.subflowConfig?.subflowId && (
+        <div className="text-xs mt-1 opacity-80 truncate max-w-[160px] font-mono">
+          → {data.subflowConfig.subflowId}
+        </div>
+      )}
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+    </div>
+  );
+};
+
+export const TryCatchNode: React.FC<CustomNodeProps> = ({ data, selected, isActive }) => {
+  const colors = nodeTypeColors.trycatch;
+  return (
+    <div
+      className={`relative px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 min-w-[160px]
+        ${selected ? 'ring-2 ring-white ring-offset-2 ring-offset-slate-900' : ''}
+        ${isActive ? 'ring-4 ring-blue-400' : ''}
+        ${data.breakpoint ? 'ring-2 ring-red-500' : ''}
+      `}
+      style={{
+        backgroundColor: colors.bg,
+        color: colors.text,
+        borderLeft: `4px solid ${colors.border}`,
+      }}
+    >
+      {data.breakpoint && (
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[10px]">
+          ●
+        </div>
+      )}
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!w-3 !h-3 !bg-white !border-2 !border-slate-700"
+      />
+      <div className="font-semibold flex items-center gap-2">
+        <span>🛡️</span>
+        {data.label}
+      </div>
+      <div className="text-xs mt-1 opacity-80 flex gap-2">
+        <span className="text-green-300">✓ Try</span>
+        <span className="text-red-300">✕ Catch</span>
+      </div>
+      <Handle
+        type="source"
+        position={Position.Right}
+        id="true"
+        className="!w-3 !h-3 !bg-green-400 !border-2 !border-slate-700 !top-[40%]"
+      />
+      <Handle
+        type="source"
+        position={Position.Right}
+        id="catch"
+        className="!w-3 !h-3 !bg-pink-500 !border-2 !border-slate-700 !top-[60%]"
+      />
+    </div>
+  );
+};

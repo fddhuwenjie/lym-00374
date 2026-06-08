@@ -61,10 +61,18 @@ class FlowValidator:
                     raise ValidationError(f"End node '{node.id}' cannot have outgoing edges")
 
             else:
-                if node.id not in self.incoming or len(self.incoming[node.id]) == 0:
-                    raise ValidationError(f"Node '{node.id}' must have at least one incoming edge")
-                if node.id not in self.outgoing or len(self.outgoing[node.id]) == 0:
-                    raise ValidationError(f"Node '{node.id}' must have at least one outgoing edge")
+                if node.type in ['parallel', 'trycatch']:
+                    if node.id not in self.incoming or len(self.incoming[node.id]) == 0:
+                        raise ValidationError(f"Node '{node.id}' must have at least one incoming edge")
+                    if node.id not in self.outgoing or len(self.outgoing[node.id]) == 0:
+                        raise ValidationError(f"Node '{node.id}' must have at least one outgoing edge")
+                elif node.data.anchorId:
+                    pass
+                else:
+                    if node.id not in self.incoming or len(self.incoming[node.id]) == 0:
+                        raise ValidationError(f"Node '{node.id}' must have at least one incoming edge")
+                    if node.id not in self.outgoing or len(self.outgoing[node.id]) == 0:
+                        raise ValidationError(f"Node '{node.id}' must have at least one outgoing edge")
 
     def _validate_edge_consistency(self) -> None:
         for edge in self.edges:
@@ -125,6 +133,28 @@ class FlowValidator:
                         f"Loop node '{node.id}' must have exactly one normal outgoing edge (exit path), "
                         f"found {len(normal_edges)}"
                     )
+
+            elif node.type in ['parallel', 'trycatch', 'subflow', 'http', 'sql']:
+                for edge in node_edges:
+                    if edge.sourceHandle is not None:
+                        raise ValidationError(
+                            f"Node '{node.id}' of type '{node.type}' cannot have edges with sourceHandle. "
+                            f"Only Condition and Loop nodes support labeled edges."
+                        )
+
+                if len(node_edges) != 1:
+                    raise ValidationError(
+                        f"Node '{node.id}' of type '{node.type}' must have exactly one outgoing edge, "
+                        f"found {len(node_edges)}"
+                    )
+
+            elif node.data.anchorId:
+                for edge in node_edges:
+                    if edge.sourceHandle is not None:
+                        raise ValidationError(
+                            f"Node '{node.id}' of type '{node.type}' cannot have edges with sourceHandle. "
+                            f"Only Condition and Loop nodes support labeled edges."
+                        )
 
             else:
                 for edge in node_edges:
@@ -256,6 +286,8 @@ class FlowValidator:
         reachable_from_start = self._get_reachable_nodes(start_node.id, all_edges)
 
         for node in self.flow.nodes:
+            if node.data.anchorId:
+                continue
             if node.id not in reachable_from_start:
                 raise ValidationError(
                     f"Node '{node.id}' is not reachable from Start node. "
